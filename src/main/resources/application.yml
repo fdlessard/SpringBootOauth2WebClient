@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+#  main:
+#    web-application-type: reactive
+  security:
+      user:
+        name: name
+        password: password
+      oauth2:
+        client:
+          registration:
+            message:
+              clientId: client
+              clientSecret: secret
+              authorizationGrantType: client_credentials
+              scope: read, write
+#              accessTokenUri: http://localhost:8081/oauth/token
+#              redirect-uri: http://localhost:8081/login
+          provider:
+            message:
+              tokenUri: http://localhost:8081/oauth/token
+#              authorizationUri: http://localhost:8082/oauth/authorize
