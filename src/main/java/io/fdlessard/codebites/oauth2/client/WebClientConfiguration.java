@@ -32,7 +32,7 @@ public class WebClientConfiguration {
     public final static String MESSAGE_BASE_URL = "http://localhost:8081";
 
     @Bean
-    public WebClient ratePlanWebClient(
+    public WebClient messageWebClient(
             ClientRegistrationRepository clientRegistrations,
             OAuth2AuthorizedClientRepository authorizedClients,
             ClientHttpConnector clientHttpConnector
@@ -81,7 +81,7 @@ public class WebClientConfiguration {
     }
 
     @Bean
-    public WebClient ratePlanWebClient(
+    public WebClient messageWebClient(
             ReactiveClientRegistrationRepository clientRegistrations,
             ServerOAuth2AuthorizedClientRepository serverOAuth2AuthorizedClientRepository,
             ClientHttpConnector clientHttpConnector
