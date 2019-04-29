@@ -1,24 +1,33 @@
 server:
   port: 8080
 
+logging:
+  level:
+    root: debug
+    org:
+      springframework:
+        web: debug
+        security: debug
+
 spring:
 #  main:
+#    allow-bean-definition-overriding: true
 #    web-application-type: reactive
   security:
       user:
         name: name
         password: password
-      oauth2:
-        client:
-          registration:
-            message:
-              clientId: client
-              clientSecret: secret
-              authorizationGrantType: client_credentials
-              scope: read, write
-#              accessTokenUri: http://localhost:8081/oauth/token
-#              redirect-uri: http://localhost:8081/login
-          provider:
-            message:
-              tokenUri: http://localhost:8081/oauth/token
-#              authorizationUri: http://localhost:8082/oauth/authorize
+#      oauth2:
+#        client:
+#          registration:
+#            message:
+#              clientId: client
+#              clientSecret: secret
+#              authorizationGrantType: client_credentials
+#              scope: read, write
+##              accessTokenUri: http://localhost:8081/oauth/token
+##              redirect-uri: http://localhost:8080/login
+#          provider:
+#            message:
+#              tokenUri: http://localhost:8081/oauth/token
+##              authorizationUri: http://localhost:8082/oauth/authorize

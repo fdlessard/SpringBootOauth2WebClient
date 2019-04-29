@@ -12,7 +12,6 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @RestController
-
 public class WebClientMessageController {
 
     private WebClient messageWebClient;
@@ -32,6 +31,14 @@ public class WebClientMessageController {
                 .uri("/message")
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(Message.class);
+                .bodyToMono(Message.class)
+                .onErrorResume(e -> logException(e));
+    }
+
+    private Mono<Message> logException(Throwable e) {
+
+        log.info("WebClientMessageController.logException({})", e);
+
+        return Mono.just(new Message(e.getMessage()));
     }
 }
