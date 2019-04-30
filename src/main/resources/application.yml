@@ -10,24 +10,9 @@ logging:
         security: debug
 
 spring:
-#  main:
-#    allow-bean-definition-overriding: true
-#    web-application-type: reactive
+  application:
+    name: OAuth2WebClient
   security:
-      user:
-        name: name
-        password: password
-#      oauth2:
-#        client:
-#          registration:
-#            message:
-#              clientId: client
-#              clientSecret: secret
-#              authorizationGrantType: client_credentials
-#              scope: read, write
-##              accessTokenUri: http://localhost:8081/oauth/token
-##              redirect-uri: http://localhost:8080/login
-#          provider:
-#            message:
-#              tokenUri: http://localhost:8081/oauth/token
-##              authorizationUri: http://localhost:8082/oauth/authorize
+    user:
+      name: username
+      password: password

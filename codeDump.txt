@@ -1,3 +1,35 @@
+spring:
+#  main:
+#    allow-bean-definition-overriding: true
+#    web-application-type: reactive
+
+
+
+spring:
+  application:
+    name: OAuth2WebClient
+  security:
+    user:
+      name: web
+      password: client
+#      oauth2:
+#        client:
+#          registration:
+#            message:
+#              clientId: client
+#              clientSecret: secret
+#              authorizationGrantType: client_credentials
+#              scope: read, write
+##              accessTokenUri: http://localhost:8081/oauth/token
+##              redirect-uri: http://localhost:8080/login
+#          provider:
+#            message:
+#              tokenUri: http://localhost:8081/oauth/token
+##              authorizationUri: http://localhost:8082/oauth/authorize
+
+
+
+
     /*
         @Bean
         public ReactiveClientRegistrationRepository clientRegistrations() {
@@ -38,3 +70,6 @@
                     .build();
         }
     */
+
+
+
