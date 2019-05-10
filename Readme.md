@@ -17,3 +17,6 @@ https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Features-Matri
 
 https://github.com/rwinch/webclientoauth2-cli
 https://github.com/Brico87/spring-security-oauth2-m2m
+
+
+POST http://localhost:8081/oauth/token

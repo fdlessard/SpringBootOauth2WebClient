@@ -12,7 +12,6 @@ import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 import reactor.util.function.Tuples;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +38,7 @@ public class WebClientMessageController {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Message.class)
-                .onErrorResume(e -> logException(e));
+                .onErrorResume(this::logException);
     }
 
     private Mono<Message> logException(Throwable e) {
@@ -78,7 +77,7 @@ public class WebClientMessageController {
 
         if (e instanceof WebClientResponseException) {
             WebClientResponseException wce = (WebClientResponseException) e;
-            return Mono.just(Tuples.of(id, new Message( wce.getResponseBodyAsString())));
+            return Mono.just(Tuples.of(id, new Message(wce.getResponseBodyAsString())));
         }
 
         return Mono.just(Tuples.of(id, new Message("not WebClientResponseException")));

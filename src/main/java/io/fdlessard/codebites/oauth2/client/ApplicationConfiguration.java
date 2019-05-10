@@ -22,6 +22,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.tcp.TcpClient;
 
+import java.time.Duration;
+import java.time.temporal.TemporalUnit;
+
 
 @Slf4j
 @Configuration
@@ -31,27 +34,37 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
 
     @Bean
     public WebClient messageWebClient(
-            ClientRegistrationRepository clientRegistrations,
-            OAuth2AuthorizedClientRepository authorizedClients,
+            ServletOAuth2AuthorizedClientExchangeFilterFunction servletOAuth2AuthorizedClientExchangeFilterFunction,
             ClientHttpConnector clientHttpConnector
     ) {
 
         log.info("WebClientConfiguration.messageWebClient()");
-        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth =
-                new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrations, authorizedClients);
-
-       // oauth.setDefaultOAuth2AuthorizedClient(true);
-        oauth.setDefaultClientRegistrationId("message");
-
 
         return WebClient.builder()
                 .baseUrl(MESSAGE_BASE_URL)
                 .clientConnector(clientHttpConnector)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
-                .apply(oauth.oauth2Configuration())
+                .filter(servletOAuth2AuthorizedClientExchangeFilterFunction)
                 .filter(logRequest())
+ //               .apply(servletOAuth2AuthorizedClientExchangeFilterFunction.oauth2Configuration())
                 .build();
+    }
+
+    @Bean
+    public ServletOAuth2AuthorizedClientExchangeFilterFunction servletOAuth2AuthorizedClientExchangeFilterFunction(
+            ClientRegistrationRepository clientRegistrations,
+            OAuth2AuthorizedClientRepository authorizedClients
+    ) {
+
+        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth =
+                new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrations, authorizedClients);
+
+        oauth.setDefaultOAuth2AuthorizedClient(true);
+        oauth.setDefaultClientRegistrationId("message");
+        oauth.setAccessTokenExpiresSkew(Duration.ofSeconds(30));
+
+        return oauth;
     }
 
     @Bean
